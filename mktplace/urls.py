@@ -18,11 +18,11 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from ajax_select import urls as ajax_select_urls
+from portal import urls as home_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('ajax_select/', include(ajax_select_urls)),
-
-
-]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path('', include(home_urls)),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
