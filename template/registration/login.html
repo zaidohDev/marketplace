@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Market Place - Login{% endblock %}
+
+{% block content %}
+
+    <h3>Login</h3>
+<nav>
+<h4><a href="{% url 'logout' %}"> Logout</a></h4>
+</nav>
+    <form class="form-horizontal" method="post">
+        {% csrf_token%}
+        {{form.as_p}}
+
+        <button type="submit">Logar</button>
+    </form>
+
+{% endblock %}
