@@ -1,6 +1,6 @@
-from django.shortcuts import render, render_to_response
-from .models import Product
-
+from django.shortcuts import render, redirect, render_to_response
+from .models import Product, Category
+from .forms import ProductForm
 
 # Create your views here.
 def home(request):
@@ -14,3 +14,33 @@ def my_products_list(request):
         'products': products
     }
     return render(request, 'portal/my_products_list.html', context)
+
+
+def product_new(request):
+
+    if request.method == 'POST':
+        form = ProductForm(request.POST)
+        if form.is_valid():
+            product = Product()
+            product.user = request.user
+            product.name = form.cleaned_data['name']
+            product.slug = form.cleaned_data['slug']
+            product.quantity = form.cleaned_data['quantity']
+            product.price = form.cleaned_data['price']
+            product.short_description = form.cleaned_data['short_description']
+            product.description = form.cleaned_data['description']
+            product.status = 'Active'
+            product.save()
+
+            categories = Category.objects.filter(id__in=request.POST.getlist('categories'))
+            if categories:
+                for category in categories:
+                    product.categories.add(category)
+
+            return redirect('my_products_list')
+    form = ProductForm()
+    context = {
+        'form': form,
+            }
+
+    return render(request, 'portal/product_new.html', context)
