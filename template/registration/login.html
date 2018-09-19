@@ -9,7 +9,8 @@
         {% csrf_token%}
         {{form.as_p}}
 
-        <button type="submit">Logar</button>
+        <button type="submit">Logar</button><p></p>
+        <nav>Não tem cadastro? <spam></spam><a href="{% url 'login_register' %}">Registrar-se</a></nav>
     </form>
 
 {% endblock %}
