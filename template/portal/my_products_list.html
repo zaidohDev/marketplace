@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Market Place - My Products{% endblock %}
+
+{% block content %}
+<nav>
+    <h1>Listagem de Produtos</h1>
+    <a href="{% url 'product_new' %}" class="btn btn-success">New Publish</a>
+</nav>
+<table class="table table_bordered">
+    <tr>
+        <th>ID</th>
+        <th>Título</th>
+        <th>Url</th>
+        <th>Status</th>
+        <th>Ação</th>
+    </tr>
+
+    <tbody>
+    {% for product in products%}
+    <tr>
+
+        <td>{{ product.id}}</td>
+        <td>{{ product.name}}</td>
+        <td>{{ product.slug}}</td>
+        <td>{{ product.status}}</td>
+        <td>
+            <div class="btn-group" style="float:right">
+                <a href="" type="button" class="btn btn-default">Detail</a>
+                <a href="" type="button" class="btn btn-warning">Edit</a>
+                <a href="" type="button" class="btn btn-danger">Delete</a>
+            </div>
+        </td>
+
+    </tr>
+ {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
