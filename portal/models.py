@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
-
+from django.template.defaultfilters import slugify
 
 # Daniel de Almeida
 # Developed Full Stack
@@ -41,6 +41,13 @@ class Product(models.Model):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        is_new = self.pk is None
+        if is_new:
+            super(Product, self).save()
+            self.slug = '%s-%i' % (slugify(self.name), self.id)
+        super(Product, self).save(*args, **kwargs)
 
 
 class ProductQuestion(models.Model):
